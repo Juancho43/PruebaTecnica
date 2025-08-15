@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-
 import { User } from '../Domain/User';
 import { UserEmail } from '../Domain/ValueObject/UserEmail';
 import { UserPassword } from '../Domain/ValueObject/UserPassword';
@@ -17,29 +16,47 @@ export class UserService {
     const userEmail = new UserEmail(email);
     const userPassword = new UserPassword(password);
     const user = new User(userEmail, userPassword);
-    this.userRepository.save(user);
+    this.userRepository.save(user).catch((error) => {
+      throw new Error('User registration failed' + error);
+    });
     return user;
   }
-  login(email: string, password: string): User | null {
-    const user = this.getByEmail(email);
+  async login(email: string, password: string): Promise<User | null> {
+    const user = await this.getByEmail(email);
     user.login(password);
-    this.userRepository.login(email, password);
+    await this.userRepository.save(user);
     return user;
   }
-  logout(userId: string): void {
-    const user = this.getById(userId);
+  async logout(userToken: string): Promise<void> {
+    const user = await this.getByToken(userToken);
     user.logout();
-    this.userRepository.logout(userId);
+    await this.userRepository.save(user);
   }
-  getByEmail(email: string): User {
-    const user = this.userRepository.getByEmail(email);
+  async getByEmail(email: string): Promise<User> {
+    const user = await this.userRepository.getByEmail(email).catch((error) => {
+      throw new Error(`Error fetching user by email: ${error}`);
+    });
+
     if (!user) {
       throw new Error(`User with email ${email} not found`);
     }
     return user;
   }
-  getById(userId: string): User {
-    const user = this.userRepository.getById(userId);
+  async getByToken(userToken: string): Promise<User> {
+    const user = await this.userRepository
+      .getByToken(userToken)
+      .catch((error) => {
+        throw new Error(`Error fetching user by ID: ${error}`);
+      });
+    if (!user) {
+      throw new Error(`User with Token ${userToken} not found`);
+    }
+    return user;
+  }
+  async getById(userId: string): Promise<User> {
+    const user = await this.userRepository.getById(userId).catch((error) => {
+      throw new Error(`Error fetching user by ID: ${error}`);
+    });
     if (!user) {
       throw new Error(`User with ID ${userId} not found`);
     }

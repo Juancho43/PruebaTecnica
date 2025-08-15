@@ -1,7 +1,7 @@
 import * as crypto from 'crypto';
 
 export class UserToken {
-  private readonly token: string;
+  private token: string;
   private readonly validityPeriod: number = 3600; // 1 hour in seconds
   constructor(validityPeriod?: number) {
     this.validityPeriod = validityPeriod || this.validityPeriod;
@@ -11,6 +11,12 @@ export class UserToken {
     return this.token;
   }
 
+  setExistingToken(token: string): void {
+    if (!token || token.length !== 64) {
+      throw new Error('Invalid token format');
+    }
+    this.token = token;
+  }
   checkValidity(): boolean {
     if (!this.isValid()) {
       throw new Error('Token is invalid or expired');

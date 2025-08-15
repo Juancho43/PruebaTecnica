@@ -2,7 +2,7 @@ import * as crypto from 'crypto';
 
 export class UserPassword {
   private readonly password: string;
-  private regexp: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  private regexp: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,50}$/;
 
   constructor(password: string) {
     if (!password.match(this.regexp)) {
@@ -12,7 +12,11 @@ export class UserPassword {
     }
     this.password = this.hashPassword(password);
   }
-
+  static fromHashed(hashedPassword: string): UserPassword {
+    const instance = Object.create(UserPassword.prototype);
+    instance.password = hashedPassword;
+    return instance;
+  }
   getPassword(): string {
     return this.password;
   }

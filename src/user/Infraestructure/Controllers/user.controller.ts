@@ -1,5 +1,14 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Headers,
+  HttpStatus,
+  HttpCode,
+} from '@nestjs/common';
 import { UserService } from '../../Application/user.service';
+import { LoginDTO } from '../../Application/DTO/LoginDTO';
+import { RegisterDTO } from '../../Application/DTO/RegisterDTO';
 
 @Controller('user')
 export class UserController {
@@ -7,25 +16,25 @@ export class UserController {
   constructor(userService: UserService) {
     this.userService = userService;
   }
-
+  @HttpCode(HttpStatus.CREATED)
   @Post('register')
-  register(@Body() payload: { email: string; password: string }) {
+  register(@Body() payload: RegisterDTO) {
     this.userService.register(payload.email, payload.password);
     return { message: 'User registered successfully' };
   }
-
+  @HttpCode(HttpStatus.OK)
   @Post('login')
-  login(@Body() payload: { email: string; password: string }) {
-    const user = this.userService.login(payload.email, payload.password);
-    if (user) {
-      return { message: 'Login successful', user };
-    } else {
-      return { message: 'Invalid credentials' };
-    }
+  async login(@Body() payload: LoginDTO) {
+    const user = await this.userService.login(payload.email, payload.password);
+    return {
+      message: 'User logged in successfully',
+      token: user ? user.getToken()?.getToken() : null,
+    };
   }
+  @HttpCode(HttpStatus.OK)
   @Post('logout')
-  logout(@Body() payload: { userId: string }) {
-    this.userService.logout(payload.userId);
+  async logout(@Headers('authorization') authHeader: string) {
+    await this.userService.logout(authHeader?.replace(/^Bearer\s+/i, ''));
     return { message: 'User logged out successfully' };
   }
 }

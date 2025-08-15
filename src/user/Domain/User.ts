@@ -28,6 +28,9 @@ export class User {
   getPassword(): UserPassword {
     return this.password;
   }
+  setToken(token: UserToken): void {
+    this.token = token;
+  }
   setEmail(email: UserEmail): void {
     this.email = email;
   }
