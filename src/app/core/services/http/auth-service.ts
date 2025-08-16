@@ -6,16 +6,23 @@ import {LoginDTO} from '../DTO/LoginDTO';
 import {RegisterDTO} from '../DTO/RegisterDTO';
 import {Token} from '../interfaces/Token';
 import {ApiResponse} from '../DTO/ApiResponse';
+import {tap} from 'rxjs';
+import {SessionService} from '../util/session-service';
+import {checkToken} from '../util/token.interceptor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
  private http = inject(HttpClient);
-
+  private session = inject(SessionService);
   login(data: LoginDTO) {
     const url = environment.apiUrl + authEndpoints.login;
-    return this.http.post<ApiResponse<Token>>(url, data);
+    return this.http.post<ApiResponse<string>>(url, data).pipe(
+     tap(response => {
+       this.session.initializeSession(response.data)
+     })
+    );
   }
 
   register(data : RegisterDTO) {
@@ -25,7 +32,11 @@ export class AuthService {
 
   logout(){
     const url = environment.apiUrl + authEndpoints.logout;
-    return this.http.post<ApiResponse<any>>(url, {});
+    return this.http.post<ApiResponse<any>>(url, {},{context:checkToken()}).pipe(
+      tap(response => {
+        this.session.finalizeSession();
+      })
+    );
   }
 
 

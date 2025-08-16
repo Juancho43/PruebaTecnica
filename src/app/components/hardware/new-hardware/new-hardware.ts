@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
+import {HardwareForm} from '../hardware-form/hardware-form';
 
 @Component({
   selector: 'app-new-hardware',
-  imports: [],
+  imports: [
+    HardwareForm
+  ],
   templateUrl: './new-hardware.html',
   styleUrl: './new-hardware.scss'
 })
-export class NewHardware {
+export default class NewHardware {
 
 }

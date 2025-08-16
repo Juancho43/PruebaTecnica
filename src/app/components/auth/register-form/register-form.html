@@ -1,1 +1,52 @@
-<p>register-form works!</p>
+<form
+  class="
+     w-25
+     m-auto
+
+     p-5
+    "
+  [formGroup]="registerForm"
+  (ngSubmit)="onSubmit()"
+>
+  <legend
+    class="m-auto"
+  >
+    Registrarse
+  </legend>
+  <div class="mb-3">
+    <label
+      for="email"
+      class="form-label"
+    >
+      Email:
+    </label>
+    <input
+      class="form-control"
+      id="email"
+      formControlName="email"
+    />
+
+  </div>
+  <div>
+    <label
+      for="password"
+      class="form-label"
+    >
+      Contraseña:
+    </label>
+    <input
+      class="form-control"
+      id="password"
+      type="password"
+      formControlName="password"
+    />
+  </div>
+  <button
+    type="submit"
+    [disabled]="registerForm.invalid"
+    class="btn btn-primary mt-3"
+  >
+   Registrarse
+  </button>
+
+</form>
