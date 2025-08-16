@@ -1,4 +1,4 @@
-import {Component, effect, inject, input, output, signal} from '@angular/core';
+import {Component, effect, inject, input} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Hardware} from '../../../core/services/interfaces/Hardware';
 import {HardwareService} from '../../../core/services/http/hardware-service';

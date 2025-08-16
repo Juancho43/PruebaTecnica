@@ -1,22 +1,15 @@
 @if (!this.hardwareListResource.isLoading()) {
-  @let flashState = this.hardwareState()!;
   @let hardwareList = this.hardwareListResource.value()!.data!;
   @let canEdit = this.isLoggedIn();
-  @let showFlash = this.showFlash();
-  @if (showFlash && flashState){
-  <div class="alert alert-info">
-    <p>{{ flashState.message }}</p>
-    <button class=" btn-close" (click)="onCloseFlash()"></button>
-  </div>
-  }
-
-  <h2>Listado de hardware</h2>
-  <app-hardware-list
-    class="m-auto d-flex w-100"
-    [data]="hardwareList"
-    [canEdit]="canEdit"
-  />
+  <section class="container-fluid px-md-4">
+    <h2>Listado de hardware</h2>
+    <app-hardware-list
+      class="m-auto d-flex w-100 flex-column flex-md-row flex-wrap"
+      [data]="hardwareList"
+      [canEdit]="canEdit"
+    />
 
 
-  <router-outlet/>
+    <router-outlet/>
+  </section>
 }

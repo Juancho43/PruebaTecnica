@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PageHardware } from './page-hardware';
+import {PageHardware} from './page-hardware';
 
 describe('PageHardware', () => {
   let component: PageHardware;

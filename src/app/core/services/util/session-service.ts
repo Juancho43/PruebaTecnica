@@ -6,7 +6,7 @@ import {CookieService} from './cookie-service';
 })
 export class SessionService {
   private cookieService = inject(CookieService);
-  private isAuthenticated = signal( false);
+  private isAuthenticated = signal( this.checkInitialAuthentication());
 
   getToken():string{
     return this.cookieService.getCookie('token') || '';
@@ -17,7 +17,7 @@ export class SessionService {
   }
   isAuthenticatedSignal() {
 
-    return this.isAuthenticated;
+    return this.isAuthenticated.asReadonly();
   }
   checkAuthentication() {
     const token = this.cookieService.getCookie('token');
@@ -31,5 +31,9 @@ export class SessionService {
   finalizeSession() {
     this.cookieService.removeCookie('token');
     this.isAuthenticated.set(false);
+  }
+  private checkInitialAuthentication(): boolean {
+    const token = this.cookieService.getCookie('token');
+    return !!token;
   }
 }

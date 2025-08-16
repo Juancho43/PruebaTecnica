@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { DeleteHardware } from './delete-hardware';
+import {DeleteHardware} from './delete-hardware';
 
 describe('DeleteHardware', () => {
   let component: DeleteHardware;

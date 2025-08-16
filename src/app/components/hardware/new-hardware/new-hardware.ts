@@ -1,4 +1,4 @@
-import {Component, output} from '@angular/core';
+import {Component} from '@angular/core';
 import {HardwareForm} from '../hardware-form/hardware-form';
 
 @Component({

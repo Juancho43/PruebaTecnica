@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NewHardware } from './new-hardware';
+import {NewHardware} from './new-hardware';
 
 describe('NewHardware', () => {
   let component: NewHardware;

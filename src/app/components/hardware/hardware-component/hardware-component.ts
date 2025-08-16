@@ -1,6 +1,5 @@
-import {Component, inject, input, linkedSignal} from '@angular/core';
+import {Component, input} from '@angular/core';
 import {Hardware} from '../../../core/services/interfaces/Hardware';
-import {SessionService} from '../../../core/services/util/session-service';
 import {RouterLink} from '@angular/router';
 
 @Component({

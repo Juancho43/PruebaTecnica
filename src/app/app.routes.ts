@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {authGuard} from './core/services/util/auth.guard';
 import {unauthenticatedGuard} from './core/services/util/unauthenticated.guard';
 

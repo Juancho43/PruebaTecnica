@@ -1,18 +1,17 @@
 import {Injectable, signal} from '@angular/core';
-import {HardwareAction} from '../interfaces/HardwareAction';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HardwareState {
-  private action = signal<HardwareAction | null>(null)
+  private action = signal<string>('')
 
-  notifyAction(action: HardwareAction) {
+  notifyAction(action:string) {
     this.action.set(action);
   }
 
   clearAction() {
-    this.action.set(null);
+    this.action.set('');
   }
 
   getAction() {
