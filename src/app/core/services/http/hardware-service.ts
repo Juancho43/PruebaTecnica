@@ -4,16 +4,18 @@ import {environment} from '../../../../environments/environment';
 import {hardwareEndpoints} from '../endpoints/hardware.endpoints';
 import {ApiResponse} from '../DTO/ApiResponse';
 import {Hardware} from '../interfaces/Hardware';
+import {HardwareState} from '../util/hardware-state';
+import {tap} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HardwareService {
   private http = inject(HttpClient);
-
+  private hardwareState = inject(HardwareState);
   getAll(){
     const url = environment.apiUrl + hardwareEndpoints.getAll;
-    return this.http.get<ApiResponse<Hardware>>(url);
+    return this.http.get<ApiResponse<Hardware[]>>(url);
   }
 
   getBySlug(slug: string){
@@ -23,15 +25,38 @@ export class HardwareService {
 
   create(data: Hardware) {
     const url = environment.apiUrl + hardwareEndpoints.create;
-    return this.http.post<ApiResponse<Hardware>>(url, data);
+    return this.http.post<ApiResponse<Hardware>>(url, data).pipe(
+      tap(response => {
+        this.hardwareState.notifyAction({
+          type: 'create',
+          hardware: response.data,
+          message: 'Hardware created successfully'
+        });
+      })
+    );
   }
   update(slug: string, data: Hardware) {
     const url = environment.apiUrl + hardwareEndpoints.update(slug);
-    return this.http.put<ApiResponse<Hardware>>(url, data);
+    return this.http.put<ApiResponse<Hardware>>(url, data).pipe(
+      tap(response => {
+        this.hardwareState.notifyAction({
+          type: 'update',
+          hardware: response.data,
+          message: 'Hardware updated successfully'
+        });
+      })
+    );
   }
   delete(slug: string) {
     const url = environment.apiUrl + hardwareEndpoints.delete(slug);
-    return this.http.delete<ApiResponse<any>>(url);
+    return this.http.delete<ApiResponse<any>>(url).pipe(
+      tap(response => {
+        this.hardwareState.notifyAction({
+          type: 'delete',
+          message: 'Hardware deleted successfully'
+        });
+      })
+    );
   }
 
 }

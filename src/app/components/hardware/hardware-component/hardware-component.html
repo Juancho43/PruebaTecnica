@@ -1,1 +1,13 @@
-<p>hardware-component works!</p>
+@let data= this.hardware();
+@let isLoggedIn = this.canEdit();
+<h3>Hardware</h3>
+<h4>Nombre : {{data.name}}</h4>
+<h4>Modelo : {{data.model}}</h4>
+<h4>Fabricante : {{data.manufacturer}}</h4>
+
+@if (isLoggedIn) {
+  <div class="d-flex justify-content-start">
+    <button class="btn-warning btn m-2" [routerLink]="`/hardware/edit/${data.slug}`">Editar</button>
+    <button class="btn-danger btn m-2" [routerLink]="`/hardware/delete/${data.slug}`">Eliminar</button>
+  </div>
+}

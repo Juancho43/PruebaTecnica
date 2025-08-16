@@ -1,1 +1,74 @@
-<p>hardware-form works!</p>
+@let edit = this.edit();
+<form
+  class="
+     w-25
+     m-auto
+     p-5
+    "
+  [formGroup]="hardwareForm"
+  (ngSubmit)="onSubmit()"
+>
+  <legend
+    class="m-auto"
+  >
+    @if (edit){
+      Editar hardware
+    } @else {
+      Añadir hardware
+    }
+  </legend>
+
+  <div class="mb-3">
+    <label
+      for="name"
+      class="form-label"
+    >
+      Nombre:
+    </label>
+    <input
+      class="form-control"
+      id="name"
+      formControlName="name"
+    />
+
+  </div><div class="mb-3">
+  <label
+    for="model"
+    class="form-label"
+  >
+    Modelo:
+  </label>
+  <input
+    class="form-control"
+    id="model"
+    formControlName="model"
+  />
+
+</div><div class="mb-3">
+  <label
+    for="manufacturer"
+    class="form-label"
+  >
+    Fabricante:
+  </label>
+  <input
+    class="form-control"
+    id="manufacturer"
+    formControlName="manufacturer"
+  />
+
+</div>
+
+  <button
+    type="submit"
+    [disabled]="hardwareForm.invalid"
+    class="btn btn-primary mt-3"
+  >
+    @if (edit) {
+      Editar hardware
+    } @else {
+      Cargar hardware
+    }
+  </button>
+
+</form>

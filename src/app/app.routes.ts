@@ -14,16 +14,22 @@ export const routes: Routes = [
   },
   {
     path: 'hardware',
-    canActivate: [authGuard],
     loadComponent: () => import('../app/components/hardware/page-hardware/page-hardware'),
     children:[
       {
         path: 'new',
-        loadComponent: () => import('../app/components/hardware/new-hardware/new-hardware')
+        loadComponent: () => import('../app/components/hardware/new-hardware/new-hardware'),
+        canActivate: [authGuard],
       },
       {
         path: 'edit/:slug',
+        canActivate: [authGuard],
         loadComponent: () => import('../app/components/hardware/edit-hardware/edit-hardware.component')
+      },
+      {
+        path:'delete/:slug',
+        canActivate: [authGuard],
+        loadComponent: () => import('../app/components/hardware/delete-hardware/delete-hardware')
       }
     ]
   }

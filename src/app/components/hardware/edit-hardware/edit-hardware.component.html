@@ -1,2 +1,7 @@
-<p>edit-harware works!</p>
-<app-hardware-form/>
+@let hardware = this.hardwareResource.value()!.data;
+<app-hardware-form
+  [hardwareToEdit]="hardware"
+  [edit]="true"
+
+/>
+

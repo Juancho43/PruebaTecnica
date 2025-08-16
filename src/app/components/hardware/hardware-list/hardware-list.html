@@ -1,2 +1,11 @@
-<p>hardware-list works!</p>
-<app-hardware-component/>
+@let list = this.data();
+@let edit = this.canEdit();
+@for (hardware of list; track hardware.id) {
+<app-hardware-component
+  class="m-3 w-25 container"
+  [hardware]="hardware"
+  [canEdit]="edit"
+/>
+
+}
+

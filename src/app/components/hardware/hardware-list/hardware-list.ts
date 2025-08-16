@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, input} from '@angular/core';
 import {HardwareComponent} from '../hardware-component/hardware-component';
+import {Hardware} from '../../../core/services/interfaces/Hardware';
 
 @Component({
   selector: 'app-hardware-list',
@@ -10,5 +11,6 @@ import {HardwareComponent} from '../hardware-component/hardware-component';
   styleUrl: './hardware-list.scss'
 })
 export class HardwareList {
-
+  readonly data = input.required<Hardware[]>();
+  readonly canEdit = input(false);
 }

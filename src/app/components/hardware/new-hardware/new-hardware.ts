@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, output} from '@angular/core';
 import {HardwareForm} from '../hardware-form/hardware-form';
 
 @Component({
@@ -10,5 +10,6 @@ import {HardwareForm} from '../hardware-form/hardware-form';
   styleUrl: './new-hardware.scss'
 })
 export default class NewHardware {
+
 
 }
