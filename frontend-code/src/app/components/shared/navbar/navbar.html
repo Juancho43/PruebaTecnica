@@ -1,0 +1,26 @@
+@let isLoggedIn = this.isLoggedIn();
+<nav
+
+  class="navbar "
+>
+<ul
+  class="d-flex flex-row justify-content-around w-100"
+>
+    <li routerLink="hardware">
+      Lista de hardware
+    </li>
+  @if (!isLoggedIn) {
+    <li routerLink="/login">
+      Iniciar sesión
+    </li>
+    <li routerLink="register">
+      Registrarse
+    </li>
+  } @else {
+    <li routerLink="hardware/new">
+     Nuevo Hardware
+    </li>
+    <app-logout-button/>
+  }
+</ul>
+</nav>

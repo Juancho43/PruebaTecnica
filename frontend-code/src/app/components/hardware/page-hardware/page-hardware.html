@@ -1,0 +1,15 @@
+@if (!this.hardwareListResource.isLoading()) {
+  @let hardwareList = this.hardwareListResource.value()!.data!;
+  @let canEdit = this.isLoggedIn();
+  <section class="container-fluid px-md-4">
+    <h2>Listado de hardware</h2>
+    <app-hardware-list
+      class="m-auto d-flex w-100 flex-column flex-md-row flex-wrap"
+      [data]="hardwareList"
+      [canEdit]="canEdit"
+    />
+
+
+    <router-outlet/>
+  </section>
+}

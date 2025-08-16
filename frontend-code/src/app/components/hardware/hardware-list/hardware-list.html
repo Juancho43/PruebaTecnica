@@ -1,0 +1,17 @@
+@let list = this.data();
+@let edit = this.canEdit();
+@for (hardware of list; track hardware.id) {
+<app-hardware-component
+  class="m-3 w-xl-25 container w-m-100"
+  [hardware]="hardware"
+  [canEdit]="edit"
+/>
+
+
+} @empty {
+
+  <button class="btn-info btn" routerLink="new">
+    Nuevo Hardware
+  </button>
+}
+
