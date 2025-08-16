@@ -7,8 +7,8 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { UserService } from '../../Application/user.service';
-import { LoginDTO } from '../../Application/DTO/LoginDTO';
-import { RegisterDTO } from '../../Application/DTO/RegisterDTO';
+import { LoginDTO } from '../DTO/LoginDTO';
+import { RegisterDTO } from '../DTO/RegisterDTO';
 
 @Controller('user')
 export class UserController {
