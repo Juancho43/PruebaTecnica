@@ -5,49 +5,49 @@ import { HardwareSlug } from './ValueObject/HardwareSlug';
 import { HardwareId } from './ValueObject/HardwareId';
 export class Hardware {
   constructor(
-    private _HardwareId: HardwareId,
-    private _HardwareName: HardwareName,
-    private _HardwareSlug: HardwareSlug,
-    private _HardwareModel: HardwareModel,
-    private _HardwareManufacturer: HardwareManufacturer,
+    private id: HardwareId,
+    private name: HardwareName,
+    private slug: HardwareSlug,
+    private model: HardwareModel,
+    private manufacturer: HardwareManufacturer,
   ) {}
 
   get HardwareId(): HardwareId {
-    return this._HardwareId;
+    return this.id;
   }
 
   set HardwareId(value: HardwareId) {
-    this._HardwareId = value;
+    this.id = value;
   }
   get HardwareSlug(): HardwareSlug {
-    return this._HardwareSlug;
+    return this.slug;
   }
 
   set HardwareSlug(value: HardwareSlug) {
-    this._HardwareSlug = value;
+    this.slug = value;
   }
 
   get HardwareName(): HardwareName {
-    return this._HardwareName;
+    return this.name;
   }
 
   set HardwareName(value: HardwareName) {
-    this._HardwareName = value;
+    this.name = value;
   }
 
   get HardwareModel(): HardwareModel {
-    return this._HardwareModel;
+    return this.model;
   }
 
   set HardwareModel(value: HardwareModel) {
-    this._HardwareModel = value;
+    this.model = value;
   }
 
   get HardwareManufacturer(): HardwareManufacturer {
-    return this._HardwareManufacturer;
+    return this.manufacturer;
   }
 
   set HardwareManufacturer(value: HardwareManufacturer) {
-    this._HardwareManufacturer = value;
+    this.manufacturer = value;
   }
 }

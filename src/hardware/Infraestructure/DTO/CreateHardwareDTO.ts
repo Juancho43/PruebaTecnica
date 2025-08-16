@@ -17,7 +17,7 @@ export class CreateHardwareDTO {
   @MaxLength(255, {
     message: 'El fabricante no puede ser mayor a 255 caracteres',
   })
-  @MinLength(3, { message: 'El modelo debe tener al menos 3 caracteres' })
+  @MinLength(3, { message: 'El fabricante debe tener al menos 3 caracteres' })
   public readonly manufacturer: string;
   constructor(name: string, model: string, manufacturer: string) {
     this.name = name;
