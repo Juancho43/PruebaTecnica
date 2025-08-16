@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, SchemaTypes } from 'mongoose';
 
 export type UserMongoDocument = UserMongo & Document;
 
@@ -8,6 +8,11 @@ export type UserMongoDocument = UserMongo & Document;
   timestamps: true,
 })
 export class UserMongo {
+  @Prop({
+    unique: true,
+    type: SchemaTypes.Mixed,
+  })
+  id: number | string;
   @Prop({
     required: true,
     unique: true,

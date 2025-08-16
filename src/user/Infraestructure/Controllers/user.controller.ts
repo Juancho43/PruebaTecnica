@@ -28,7 +28,7 @@ export class UserController {
     const user = await this.userService.login(payload.email, payload.password);
     return {
       message: 'User logged in successfully',
-      token: user ? user.getToken()?.getToken() : null,
+      token: user ? user.token?.getToken() : null,
     };
   }
   @HttpCode(HttpStatus.OK)

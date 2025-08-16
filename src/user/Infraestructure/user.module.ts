@@ -5,6 +5,8 @@ import { MongoDBUserRepository } from './ConcreteRepositories/MongoDBUserReposit
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserMongo, UserMongoSchema } from './Mongoose/user.mongoose.schema';
 import { UserController } from './Controllers/user.controller';
+import { ID_GENERATOR_TOKEN } from '../../shared/IdGeneratorsStrategies/id.token';
+import { NumericGeneratorStrategy } from '../../shared/IdGeneratorsStrategies/NumericGeneratorStrategy';
 
 @Module({
   imports: [
@@ -17,6 +19,10 @@ import { UserController } from './Controllers/user.controller';
     {
       provide: USER_REPOSITORY_TOKEN,
       useClass: MongoDBUserRepository,
+    },
+    {
+      provide: ID_GENERATOR_TOKEN,
+      useClass: NumericGeneratorStrategy,
     },
   ],
   controllers: [UserController],

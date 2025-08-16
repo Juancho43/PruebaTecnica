@@ -2,20 +2,27 @@ import { Inject, Injectable } from '@nestjs/common';
 import { User } from '../Domain/User';
 import { UserEmail } from '../Domain/ValueObject/UserEmail';
 import { UserPassword } from '../Domain/ValueObject/UserPassword';
-import * as IUserRepository from '../Domain/IUserRepository';
 import { USER_REPOSITORY_TOKEN } from '../Infraestructure/user.tokens';
+import type { IUserRepository } from '../Domain/IUserRepository';
+import { UserId } from '../Domain/ValueObject/UserId';
+import type { IdGenerator } from '../../shared/IdGeneratorsStrategies/IdGenerator';
+import { ID_GENERATOR_TOKEN } from '../../shared/IdGeneratorsStrategies/id.token';
 
 @Injectable()
 export class UserService {
   constructor(
     @Inject(USER_REPOSITORY_TOKEN)
-    private readonly userRepository: IUserRepository.IUserRepository,
+    private readonly userRepository: IUserRepository,
+
+    @Inject(ID_GENERATOR_TOKEN)
+    private idGenerator: IdGenerator,
   ) {}
 
   register(email: string, password: string): User {
+    const userId = new UserId(this.idGenerator.generateId());
     const userEmail = new UserEmail(email);
     const userPassword = new UserPassword(password);
-    const user = new User(userEmail, userPassword);
+    const user = new User(userId, userEmail, userPassword);
     this.userRepository.save(user).catch((error) => {
       throw new Error('User registration failed' + error);
     });
@@ -50,15 +57,6 @@ export class UserService {
       });
     if (!user) {
       throw new Error(`User with Token ${userToken} not found`);
-    }
-    return user;
-  }
-  async getById(userId: string): Promise<User> {
-    const user = await this.userRepository.getById(userId).catch((error) => {
-      throw new Error(`Error fetching user by ID: ${error}`);
-    });
-    if (!user) {
-      throw new Error(`User with ID ${userId} not found`);
     }
     return user;
   }

@@ -1,40 +1,57 @@
 import { UserEmail } from './ValueObject/UserEmail';
 import { UserPassword } from './ValueObject/UserPassword';
 import { UserToken } from './ValueObject/UserToken';
+import { UserId } from './ValueObject/UserId';
 
 export class User {
-  private email: UserEmail;
-  private password: UserPassword;
-  private token: UserToken | null = null;
-  constructor(email: UserEmail, password: UserPassword) {
-    this.email = email;
-    this.password = password;
+  private _id: UserId;
+  private _email: UserEmail;
+  private _password: UserPassword;
+  private _token: UserToken | null = null;
+  constructor(id: UserId, email: UserEmail, password: UserPassword) {
+    this._id = id;
+    this._email = email;
+    this._password = password;
   }
   login(password: string): string {
-    this.password.isCorrect(password);
-    this.token = new UserToken();
+    this._password.isCorrect(password);
+    this._token = new UserToken();
 
-    return this.token.getToken();
+    return this._token.getToken();
   }
   logout(): void {
-    this.token = null;
+    this._token = null;
   }
-  getToken(): UserToken | null {
-    return this.token;
+
+  get id(): UserId {
+    return this._id;
   }
-  getEmail(): UserEmail {
-    return this.email;
+
+  set id(value: UserId) {
+    this._id = value;
   }
-  getPassword(): UserPassword {
-    return this.password;
+
+  get email(): UserEmail {
+    return this._email;
   }
-  setToken(token: UserToken): void {
-    this.token = token;
+
+  set email(value: UserEmail) {
+    this._email = value;
   }
-  setEmail(email: UserEmail): void {
-    this.email = email;
+
+  get password(): UserPassword {
+    return this._password;
   }
-  setPassword(password: UserPassword): void {
-    this.password = password;
+
+  set password(value: UserPassword) {
+    this._password = value;
+  }
+
+  get token(): UserToken | null {
+    return this._token;
+  }
+
+  set token(value: UserToken | null) {
+    this._token = value;
   }
 }
